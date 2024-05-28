@@ -1,6 +1,3 @@
-#Install Flask
-pip install flask
-
 from flask import Flask, jsonify
 import pandas as pd
 
@@ -47,7 +44,7 @@ def precipitation():
     last_12_months = measurements_df[(measurements_df['date'] >= one_year_ago) & (measurements_df['date'] <= latest_date)]
     
     # Convert to dictionary
-    prcp_data = last_12_months[['date', 'prcp']].set_index('date').to_dict()['prcp']
+    prcp_data = last_12_months[['tobs', 'prcp']].set_index('tobs').to_dict()['prcp']
     return jsonify(prcp_data)
 
 @app.route("/api/v1.0/stations")
@@ -91,5 +88,3 @@ def temperature_stats(start, end=None):
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-python app.py
